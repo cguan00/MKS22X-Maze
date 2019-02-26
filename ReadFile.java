@@ -4,23 +4,33 @@ import java.util.Scanner;
 
 public class ReadFile {
   public static void main(String args[]) throws FileNotFoundException {
+    File text = new File("Maze1.txt");
 
-        //instead of a try/catch, you can throw the FileNotFoundException.
+    //inf stands for the input file
+    Scanner inf = new Scanner(text);
+    int numLines = 0;
 
-        //This is generally bad behavior
-
-
-        File text = new File("Maze1.txt");
-        // can be a path like: "/full/path/to/file.txt" or "../data/file.txt"
-
-
-        //inf stands for the input file
-
-        Scanner inf = new Scanner(text);
-
-        while(inf.hasNextLine()){
-            String line = inf.nextLine();
-            System.out.println(line);//hopefully you can do other things with the line
-        }
+    while(inf.hasNextLine()){
+      String line = inf.nextLine();
+      numLines += 1;
+      System.out.println(line);//hopefully you can do other things with the line
     }
+
+    String[] lines = new String[numLines];
+
+    while(inf.hasNextLine()){
+      for(int i = 0; i < numLines; i++){
+        String line = inf.nextLine();
+        lines[i] = line;
+      }
+    }
+
+    for(int i = 0; i < numLines; i++){
+      System.out.println(lines[i]);
+      System.out.println("");
+    }
+
+
+    System.out.println(numLines);
+  }
 }
