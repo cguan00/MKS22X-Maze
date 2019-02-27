@@ -3,7 +3,7 @@ import java.io.*;
 public class Maze{
 
 
-    private char[][]maze;
+    private char[][] maze;
     private boolean animate;//false by default
 
     /*Constructor loads a maze text file, and sets animate to false by default.
@@ -25,7 +25,30 @@ public class Maze{
     */
 
     public Maze(String filename) throws FileNotFoundException{
-        //COMPLETE CONSTRUCTOR
+      animate = false;
+      File text = new File(filename);
+      Scanner inf = new Scanner(text);//input file
+      ArrayList<String> lines = new ArrayList<String>(); //store each line of the text file
+
+      //print out maze by reading file line by line
+      while(inf.hasNextLine()){
+        String line = inf.nextLine();
+        lines.add(line);
+      }
+
+      int numRows = lines.size();//keep track of the number of lines (how tall the maze is)
+      int numCols = lines.get(0).length();//keep track of number of characters per line (how wide the maze is)
+
+      maze = new char[numRows][numCols];
+
+      for(int i = 0; i < numRows; i++){
+        for(int j = 0; j < lines.get(0).length(); j++){
+          maze[i][j] = lines.get(i).charAt(j);
+        }
+      }
+
+
+
     }
 
 
@@ -64,9 +87,14 @@ public class Maze{
 
     */
     public String toString(){
-
-            return "WRITE THIS METHOD";
-
+      String output = "";
+      for(int i = 0; i < maze.length; i++){
+        for(int j = 0; j < maze[i].length; j++){
+          output += maze[i][j];
+        }
+        output += "\n";
+      }
+      return output;
     }
 
 
