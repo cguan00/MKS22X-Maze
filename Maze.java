@@ -47,10 +47,24 @@ public class Maze{
         }
       }
 
+      //counting up how many E's and S's there are to see if it in invalid file
+      int countE = 0;
+      int countS = 0;
       for(int i = 0; i < maze.length; i++){
         for(int j = 0; j < maze[i].length; j++){
-          
+          if(maze[i][j] == 'E'){
+            countE += 1;
+          }
+          if(maze[i][j] == 'S'){
+            countS += 1;
+          }
         }
+      }
+
+      //not exactly 1 E or 1 S, so throw IllegalStateException
+      //not a valid file
+      if(countE != 1 || countS != 1){
+        throw new IllegalStateException();
       }
 
 
@@ -67,29 +81,17 @@ public class Maze{
 
 
     public void setAnimate(boolean b){
-
         animate = b;
-
     }
 
 
     public void clearTerminal(){
-
         //erase terminal, go to top left of screen.
-
         System.out.println("\033[2J\033[1;1H");
-
     }
 
-
-
-
-
-
    /*Return the string that represents the maze.
-
      It should look like the text file with some characters replaced.
-
     */
     public String toString(){
       String output = "";
@@ -110,19 +112,23 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
 
     */
+
+    //find the location of the S.
+    //erase the S
+    //and start solving at the location of the s.
+    //return solve(???,???);
     public int solve(){
-
-            //find the location of the S.
-
-
-            //erase the S
-
-
-            //and start solving at the location of the s.
-
-            //return solve(???,???);
-
-            return 0;
+      int[] sPosition = new int[2];
+      for(int i = 0; i < maze.length; i++){
+        for(int j = 0; j < maze[i].length; j++){
+          if(maze[i][j] == 'S'){
+            sPosition[0] = i;
+            sPosition[1] = j;
+          }
+        }
+      }
+      System.out.println(sPosition[0] + " " + sPosition[1]);
+      return 0;
 
     }
 
