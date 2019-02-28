@@ -5,6 +5,7 @@ public class Maze{
 
     private char[][] maze;
     private boolean animate;//false by default
+    private int[][] moves;
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -66,8 +67,7 @@ public class Maze{
       if(countE != 1 || countS != 1){
         throw new IllegalStateException();
       }
-
-
+      moves = new int[][] {{-1,0},{1,0},{0,1},{0,-1}};
     }
 
 
@@ -118,16 +118,19 @@ public class Maze{
     //and start solving at the location of the s.
     //return solve(???,???);
     public int solve(){
-      int[] sPosition = new int[2];
+      int sRow = 0;
+      int sCol = 0;
       for(int i = 0; i < maze.length; i++){
         for(int j = 0; j < maze[i].length; j++){
           if(maze[i][j] == 'S'){
-            sPosition[0] = i;
-            sPosition[1] = j;
+            sRow = i;
+            sCol = j;
           }
+          maze[i][j] = ' ';//erasing the S
         }
       }
-      System.out.println(sPosition[0] + " " + sPosition[1]);
+      // System.out.println(sRow + " " + sCol);
+      // return solve(sRow, sCol, 0);
       return 0;
 
     }
@@ -149,21 +152,23 @@ public class Maze{
 
         All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
-
-
-        //automatic animation! You are welcome.
-        if(animate){
-
-            clearTerminal();
-            System.out.println(this);
-
-            wait(20);
+    private int solve(int row, int col, int numSteps){ //you can add more parameters since this is private
+      //automatic animation! You are welcome.
+      if(animate){
+          clearTerminal();
+          System.out.println(this);
+          wait(20);
+      }
+      for(int i = 0; i < moves.length; i++){
+        int newRow = row + moves[i][0];
+        int newCol = col + moves[i][1];
+        //empty square. part of solution
+        if(maze[newRow][newCol] == ' '){
+          maze[newRow][newCol] = '@';
         }
+      }
 
-        //COMPLETE SOLVE
-
-        return -1; //so it compiles
+      return -1; //so it compiles
     }
 
 
