@@ -5,7 +5,6 @@ public class Maze{
 
     private char[][] maze;
     private boolean animate;//false by default
-    private int[][] moves;
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -67,7 +66,6 @@ public class Maze{
       if(countE != 1 || countS != 1){
         throw new IllegalStateException();
       }
-      moves = new int[][] {{-1,0},{1,0},{0,1},{0,-1}};
     }
 
 
@@ -152,20 +150,25 @@ public class Maze{
 
         All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col, int numSteps){ //you can add more parameters since this is private
+    private int solve(int row, int col, int steps){ //you can add more parameters since this is private
       //automatic animation! You are welcome.
       if(animate){
           clearTerminal();
           System.out.println(this);
           wait(20);
       }
+      //solved maze, return number of steps taken
+      if(maze[row][col] == 'E'){
+        return steps;
+      }
+      int[][] moves = new int[][] {{-1,0},{1,0},{0,1},{0,-1}};
       for(int i = 0; i < moves.length; i++){
         int newRow = row + moves[i][0];
         int newCol = col + moves[i][1];
         //empty square. part of solution
-        if(maze[newRow][newCol] == ' '){
-          maze[newRow][newCol] = '@';
-        }
+        // if(solve(newRow, newCol, steps + 1)){
+        //   return true;
+        // }
       }
 
       return -1; //so it compiles
