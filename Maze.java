@@ -94,7 +94,11 @@ public class Maze{
       String output = "";
       for(int i = 0; i < maze.length; i++){
         for(int j = 0; j < maze[i].length; j++){
-          output += maze[i][j];
+          if(maze[i][j] == '.'){
+            output += ' ';
+          } else{
+            output += maze[i][j];
+          }
         }
         output += "\n";
       }
