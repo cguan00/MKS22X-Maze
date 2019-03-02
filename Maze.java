@@ -25,7 +25,6 @@ public class Maze{
     */
 
     public Maze(String filename) throws FileNotFoundException{
-      animate = false;
       File text = new File(filename);
       Scanner inf = new Scanner(text);//input file
       ArrayList<String> lines = new ArrayList<String>(); //store each line of the text file
@@ -127,9 +126,7 @@ public class Maze{
         }
       }
       maze[sRow][sCol] = ' ';
-      // return solve(sRow, sCol, 0);
-      return 0;
-
+      return solve(sRow, sCol, 0);
     }
 
     /*
@@ -160,14 +157,24 @@ public class Maze{
       if(maze[row][col] == 'E'){
         return steps;
       }
+      //not a valid move (not an empty spot), return -1
+      if(maze[row][col] != ' '){
+        return -1;
+      }
+      //four possible moves: up, down, left, right
       int[][] moves = new int[][] {{-1,0},{1,0},{0,1},{0,-1}};
+      //loop through the moves
       for(int i = 0; i < moves.length; i++){
         int newRow = row + moves[i][0];
         int newCol = col + moves[i][1];
-        //empty square. part of solution
-        // if(solve(newRow, newCol, steps + 1)){
-        //   return true;
-        // }
+        maze[row][col] = '@';//stepped here, mark with @ sign
+        int output = solve(newRow, newCol, steps + 1);
+        if(output != -1){//if it is valid move
+          return output;
+        }else{
+          //not a valid move, so put a '.'
+          maze[row][col] = '.';
+        }
       }
 
       return -1; //so it compiles
