@@ -124,10 +124,9 @@ public class Maze{
             sRow = i;
             sCol = j;
           }
-          maze[i][j] = ' ';//erasing the S
         }
       }
-      // System.out.println(sRow + " " + sCol);
+      maze[sRow][sCol] = ' ';
       // return solve(sRow, sCol, 0);
       return 0;
 
