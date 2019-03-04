@@ -24,6 +24,14 @@ public class Driver{
         // maze3.setAnimate(true);
         maze3.solve();
         System.out.println(maze3);
+
+        String file4 = "data4.dat";
+        Maze maze4 = new Maze(file4);
+        System.out.println(maze4);
+        // maze4.setAnimate(true);
+        System.out.println(maze4.solve());
+
+
       }catch(FileNotFoundException e){
         System.out.println("Invalid filename");
       }catch(IllegalStateException e){
